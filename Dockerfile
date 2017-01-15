@@ -13,3 +13,15 @@ RUN cd ppgn/nets/lrcn && ./download.sh
 
 # Update packages and install image magic for command-line interfacees
 RUN apt-get update && apt-get -y install imagemagick
+
+# Install nano
+RUN apt-get update && apt-get -y install nano
+
+# Install virtualenv
+RUN pip install virtualenv
+
+# Create a Python 3 environment in the ppgn directory
+RUN cd ppgn && virtualenv -p python3 env
+
+# Edit file path for caffe/python
+RUN cd ppgn && sed -i "s|/path/to/your/caffe/python|../python |g" settings.py
